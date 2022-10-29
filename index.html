@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+    <form action="" class="form" id="form-1" method="POST">
+        <div class="header">
+            <h3>Thành viên đăng ký</h3>
+            <p>Cùng nhau học lập trình miễn phí tại F8 ❤️</p>
+        </div>
+
+        <div class="form-container">
+            <div class="form-group">
+                <label for="formName">Tên đầy đủ</label>
+                <input type="text" class="data" placeholder="VD: Hoài Vĩ" id="formName" name="Name">
+                <span class="formMessage"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="formMail">Email</label>
+                <input type="mail" placeholder="VD: email@domain.com" id="formMail" name="Email" disabled>
+                <span class="formMessage"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="formPass">Mật khẩu</label>
+                <input type="password" placeholder="Nhập mật khẩu" id="formPass" name="Password">
+                <span class="formMessage"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="formRepass">Nhập lại mật khẩu</label>
+                <input type="password" placeholder="Nhập lại mật khẩu" id="formRepass" name="Repasword">
+                <span class="formMessage"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="avatar">Ảnh đại diện</label>
+                <input type="file" id="avatar" name="avatar" multiple>
+                <span class="formMessage"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="province">Tỉnh/TP</label>
+                <select name="province" id="province">
+                    <option value="">-- Chọn Tỉnh/TP --</option>
+                    <option value="hn">Hà Nội</option>
+                    <option value="hcm">Hồ Chí Minh</option>
+                    <option value="dn">Đà Nẵng</option>
+                </select>
+                <span class="formMessage"></span>
+            </div>
+
+            <div class="form-group gender">
+                <label>Giới tính</label>
+                <div>
+                    <input type="checkbox" name="gender" value="male" id="male">
+                    <label for="male" class="inputLabel">Nam</label>
+                </div>
+                <div>
+                    <input type="checkbox" name="gender" value="female" id="female">
+                    <label for="female" class="inputLabel">Nữ</label>
+                </div>
+                <div>
+                    <input type="checkbox" name="gender" value="other" id="other">
+                    <label for="other" class="inputLabel">Khác</label>
+                </div>
+                <span class="formMessage"></span>
+
+            </div>
+
+            <button class="formBtn">Đăng ký</button>
+        </div>
+    </form>
+    <script src="./validator.js"></script>
+
+    <script>
+
+        Validator({
+            form: '#form-1',
+            formGroupSelector: '.form-group',
+            errorSelector: '.formMessage',
+            rules: [
+                Validator.isRequired('#formName', 'Nhập tên và họ'),
+                // Validator.isEmail('#formMail'),
+                Validator.isPassword('#formPass', 6, 'Nhập mật khẩu'),
+                Validator.isConfirm('#formRepass', function () {
+                    return document.querySelector(`#form-1 #formPass`).value;
+                }),
+                Validator.isRequired('input[name="gender"]'),
+                Validator.isRequired('#province', 'Chọn trường này'),
+                Validator.isRequired('#avatar', 'Chọn trường này'),
+
+            ],
+            getInfoForm: function (data) {
+                console.log(data)
+            }
+        })
+    </script>
+</body>
+
+</html>
