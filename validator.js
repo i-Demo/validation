@@ -41,7 +41,7 @@ function Validator(options) {
             //1. Ngan can hanh dong submit 
             e.preventDefault();
 
-            var isValid = true;
+            var errorCount = 0;
             //2. Validate toàn bộ form khi nhấn submit
             options.rules.forEach(function (rule) {
 
@@ -51,7 +51,7 @@ function Validator(options) {
                         var inputElement = formElement.querySelector(rule.selector + ':checked');
                         if (!inputElement) {
                             validate(formElement.querySelector(rule.selector), "Chọn trường này");
-                            isValid = false;
+                            errorCount++;
                         }
                         break;
                     default:
@@ -60,14 +60,14 @@ function Validator(options) {
                         validate(inputElement, errorMessage);
 
                         // Xác định form đã được validate hết chưa
-                        if (validate(inputElement, errorMessage)) isValid = false;
+                        if (validate(inputElement, errorMessage)) errorCount++;
 
                 }
 
             })
 
             //3. Lấy data khi form valid
-            if (isValid) {
+            if (errorCount === 0) {
                 var inputLists = formElement.querySelectorAll('[name]');
 
                 // Lây dữ liệu form đưa vào object formData
